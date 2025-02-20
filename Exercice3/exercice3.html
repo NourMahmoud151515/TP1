@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestionnaire de Todo</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #d9e1e8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .container {
+        background: #e0e6ed;
+        padding: 20px;
+        border-radius: 5px;
+        width: 500px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .task-list {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .input-area {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      input {
+        width: 100%;
+        padding: 5px;
+      }
+      button {
+        background-color: #831c54;
+        color: white;
+        border: none;
+        padding: 5px;
+        cursor: pointer;
+        width: 255px;
+      }
+      .task {
+        background: white;
+        padding: 0.2px;
+        border-radius: 3px;
+        width: 90%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .task-name,
+      .task-content {
+        background: #f9f9f9;
+        padding: 3px;
+        border-radius: 3px;
+      }
+      .trash {
+        cursor: pointer;
+        color: rgb(107, 24, 79);
+        font-weight: bold;
+        align-self: flex-end;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="task-list" id="taskList"></div>
+      <div class="input-area">
+        <label> <strong>Nom :</strong></label>
+        <input type="text" id="taskName" />
+        <label><strong>Contenu :</strong></label>
+        <input type="text" id="taskContent" />
+        <button onclick="addTask()">Add Todo</button>
+      </div>
+    </div>
+    <script>
+      function addTask() {
+        let taskList = document.getElementById("taskList");
+        let name = document.getElementById("taskName").value;
+        let content = document.getElementById("taskContent").value;
+
+        if (name === "" || content === "") return;
+
+        let task = document.createElement("div");
+        task.classList.add("task");
+
+        let taskName = document.createElement("div");
+        taskName.classList.add("task-name");
+        taskName.textContent = name;
+
+        let taskContent = document.createElement("div");
+        taskContent.classList.add("task-content");
+        taskContent.textContent = content;
+
+        let trash = document.createElement("span");
+        trash.classList.add("trash");
+        trash.textContent = "🗑";
+        trash.onclick = function () {
+          task.remove();
+        };
+
+        task.appendChild(taskName);
+        task.appendChild(taskContent);
+        task.appendChild(trash);
+
+        taskList.appendChild(task);
+
+        document.getElementById("taskName").value = "";
+        document.getElementById("taskContent").value = "";
+      }
+    </script>
+  </body>
+</html>
